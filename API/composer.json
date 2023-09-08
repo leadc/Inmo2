@@ -1,0 +1,13 @@
+{
+    "require": {
+    "slim/slim": "4.*",
+    "firebase/php-jwt": "^5.0",
+    "phpmailer/phpmailer": "^6.0",
+    "phpoffice/phpexcel": "^1.8",
+    "phpoffice/phpspreadsheet": "^1.29"
+},
+    "autoload": {
+        "psr-4": { "BasicORM\\": "src/" }
+    },
+        "sendgrid/sendgrid": "~7"
+}

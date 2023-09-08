@@ -1,0 +1,41 @@
+<div class="map-wrapper" [class.fullscreen]="fullscreen" [ngClass]="'toolbar-'+settings.toolbar"> 
+
+    <google-map [center]="center" 
+                [zoom]="zoom" 
+                [options]="mapOptions"
+                height="100%" 
+                width="100%"
+                (mapClick)="onMapClick($event)"
+                (zoomChanged)="onZoomChanged()"
+                (idle)="onMapReady()">
+        <map-marker #marker="mapMarker"
+                    *ngFor="let location of locations; let i = index"
+                    [position]="{ lat: location.lat, lng: location.lng }"
+                    [options]="markerOptions"
+                    (mapClick)="onMarkerClick($event, location.propertyId, marker)"></map-marker>
+ 
+        <map-info-window> 
+            <ng-container *ngIf="property; else mapSpinner">
+                <a [routerLink]="['/properties', property.id]" class="text-center">
+                    <img [src]="property.gallery[0].small" alt="image" class="d-block w-100"> 
+                    <p class="my-1">{{property.title}}</p> 
+                    <p *ngIf="settings.currency == 'USD'" class="fw-500 my-1">
+                        <span *ngIf="property.priceDollar.sale">{{property.priceDollar.sale | currency : 'USD' : 'symbol' : '1.0'}}</span>
+                        <span *ngIf="property.priceDollar.rent">{{property.priceDollar.rent | currency : 'USD' : 'symbol' : '1.0'}} /month</span>
+                    </p>
+                    <p *ngIf="settings.currency == 'EUR'" class="fw-500 my-1">
+                        <span *ngIf="property.priceEuro.sale">{{property.priceEuro.sale | currency : 'EUR' : 'symbol' : '1.0'}}</span>
+                        <span *ngIf="property.priceEuro.rent">{{property.priceEuro.rent | currency : 'EUR' : 'symbol' : '1.0'}} /month</span>
+                    </p>
+                </a> 
+            </ng-container>
+            <ng-template #mapSpinner>
+                <div class="p-3">
+                    <mat-spinner color="warn"></mat-spinner>
+                </div>
+            </ng-template>
+        </map-info-window>
+     
+    </google-map>
+
+</div>

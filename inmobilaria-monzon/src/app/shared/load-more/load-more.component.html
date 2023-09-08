@@ -1,0 +1,11 @@
+<div id="load-more">
+  <div *ngIf="!settings.loadMore.complete">
+      <button *ngIf="!settings.loadMore.start" mat-raised-button color="primary" (click)="startLoad()" class="uppercase">Load More</button>
+      <mat-spinner *ngIf="settings.loadMore.start"></mat-spinner> 
+  </div>
+  <mat-chip-listbox *ngIf="settings.loadMore.complete">
+      <mat-chip-option highlighted selectable="false" disableRipple="true" color="warn" class="uppercase ws-nowrap">
+          {{settings.loadMore.result}} results
+      </mat-chip-option> 
+  </mat-chip-listbox>
+</div>
